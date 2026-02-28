@@ -1,0 +1,42 @@
+---
+const teamMembers = [
+  {
+    name: 'Dr. Harold J. Bean',
+    role: 'Lead Dentist',
+    bio: 'With decades of experience and a background serving in the Armed Forces, Dr. Bean brings precision, discipline, and compassion to every patient interaction.',
+  },
+  {
+    name: 'Dr. Greiff',
+    role: 'Dentist',
+    bio: 'Also a veteran of the Armed Forces, Dr. Greiff is highly experienced in both simple and surgical extractions, and has been an instructor for dental programs throughout the years.',
+  },
+];
+---
+
+<section class="team" id="team">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Our Team</span>
+      <h2 class="section-title">Meet Your Dental Care Providers</h2>
+      <p class="section-subtitle">
+        Our skilled dentists combine years of expertise with a genuine passion for patient care. Both have proudly served in the Armed Forces.
+      </p>
+    </div>
+    <div class="team-grid">
+      {teamMembers.map((member) => (
+        <div class="team-card" data-aos>
+          <div class="team-image">
+            <div class="team-image-placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4BA69D" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+          </div>
+          <div class="team-info">
+            <h3>{member.name}</h3>
+            <span class="team-role">{member.role}</span>
+            <p>{member.bio}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,183 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import Services from '../components/Services.astro';
+import About from '../components/About.astro';
+import Team from '../components/Team.astro';
+import Quote from '../components/Quote.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CTA from '../components/CTA.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Lake Pointe Dental Group | Dentist in O'Fallon, IL">
+  <Navbar />
+  <Hero />
+  <TrustBar />
+  <Services />
+  <About />
+  <Team />
+  <Quote />
+  <Testimonials />
+  <CTA />
+  <Contact />
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Navbar Scroll Effect
+    const navbar = document.getElementById('navbar');
+
+    function handleNavScroll() {
+      if (!navbar) return;
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }
+
+    window.addEventListener('scroll', handleNavScroll, { passive: true });
+    handleNavScroll();
+
+    // Mobile Navigation Toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', function () {
+        navToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+      });
+
+      navLinks.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          navToggle.classList.remove('active');
+          navLinks.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+
+    // Smooth Scroll for Anchor Links
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (!targetId || targetId === '#') return;
+
+        const target = document.querySelector(targetId);
+        if (target && navbar) {
+          e.preventDefault();
+          const navHeight = navbar.offsetHeight;
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth',
+          });
+        }
+      });
+    });
+
+    // Scroll Reveal Animations
+    const animatedElements = document.querySelectorAll('[data-aos]');
+
+    function revealOnScroll() {
+      const windowHeight = window.innerHeight;
+
+      animatedElements.forEach(function (el) {
+        const elementTop = el.getBoundingClientRect().top;
+        const revealPoint = windowHeight - 100;
+
+        if (elementTop < revealPoint) {
+          el.classList.add('aos-animate');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealOnScroll, { passive: true });
+    revealOnScroll();
+
+    // Parallax Effect for Quote Section
+    const parallaxSection = document.querySelector('.parallax-quote') as HTMLElement | null;
+
+    function handleParallax() {
+      if (!parallaxSection) return;
+      const scrolled = window.pageYOffset;
+      const rect = parallaxSection.getBoundingClientRect();
+      const sectionTop = rect.top + scrolled;
+      const offset = (scrolled - sectionTop) * 0.3;
+
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        parallaxSection.style.backgroundPosition = 'center ' + offset + 'px';
+      }
+    }
+
+    window.addEventListener('scroll', handleParallax, { passive: true });
+
+    // Contact Form Handler
+    const contactForm = document.getElementById('contactForm') as HTMLFormElement | null;
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const btn = contactForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+        const originalText = btn.innerHTML;
+
+        btn.innerHTML = '<span>Sending...</span>';
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+
+        setTimeout(function () {
+          btn.innerHTML =
+            '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Request Sent!';
+          btn.style.background = '#2D8A5E';
+          btn.style.opacity = '1';
+
+          setTimeout(function () {
+            contactForm.reset();
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            btn.style.background = '';
+          }, 3000);
+        }, 1500);
+      });
+    }
+
+    // Active Nav Link on Scroll
+    const sections = document.querySelectorAll('section[id]');
+
+    function highlightNavLink() {
+      const scrollY = window.pageYOffset;
+
+      sections.forEach(function (section) {
+        const sectionHeight = section.offsetHeight;
+        const sectionTop = (section as HTMLElement).offsetTop - 200;
+        const sectionId = section.getAttribute('id');
+
+        const link = document.querySelector('.nav-links a[href="#' + sectionId + '"]');
+        if (link) {
+          if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        }
+      });
+    }
+
+    window.addEventListener('scroll', highlightNavLink, { passive: true });
+
+    // Staggered Card Animation
+    const cards = document.querySelectorAll('.service-card, .testimonial-card, .team-card');
+    cards.forEach(function (card, index) {
+      (card as HTMLElement).style.transitionDelay = (index % 3) * 0.1 + 's';
+    });
+  });
+</script>

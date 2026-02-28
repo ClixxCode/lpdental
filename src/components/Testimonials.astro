@@ -1,0 +1,53 @@
+---
+const testimonials = [
+  {
+    text: "The entire team at Lake Pointe Dental made me feel so comfortable. Dr. Bean took the time to explain everything and was incredibly gentle. Best dental experience I've ever had!",
+    name: 'Sarah M.',
+    duration: 'Patient for 5 years',
+    initial: 'S',
+  },
+  {
+    text: "I brought my whole family here and couldn't be happier. The staff is wonderful with my kids, and the office is so clean and modern. Highly recommend to anyone in O'Fallon!",
+    name: 'James T.',
+    duration: 'Patient for 3 years',
+    initial: 'J',
+  },
+  {
+    text: "After a dental emergency, Dr. Greiff saw me the same day. The care was exceptional and the follow-up was thorough. I'm so grateful to have found this practice.",
+    name: 'Linda R.',
+    duration: 'Patient for 7 years',
+    initial: 'L',
+  },
+];
+
+const starSvg = '<svg width="20" height="20" viewBox="0 0 24 24" fill="#F4B740" stroke="#F4B740" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+---
+
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Testimonials</span>
+      <h2 class="section-title">What Our Patients Say</h2>
+      <p class="section-subtitle">
+        For years, patients have placed their trust in us for compassionate care and lasting results. We listen, we care, and we deliver.
+      </p>
+    </div>
+    <div class="testimonials-grid">
+      {testimonials.map((t) => (
+        <div class="testimonial-card" data-aos>
+          <div class="testimonial-stars">
+            <Fragment set:html={starSvg.repeat(5)} />
+          </div>
+          <p class="testimonial-text">"{t.text}"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">{t.initial}</div>
+            <div>
+              <strong>{t.name}</strong>
+              <span>{t.duration}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
