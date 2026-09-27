@@ -202,14 +202,74 @@ h1, h2, h3, h4 {
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid transparent;
   transition: var(--transition);
-  padding: 16px 0;
+  padding: 0 0 16px;
 }
 
 .navbar.scrolled {
   background: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid var(--color-border-light);
   box-shadow: var(--shadow-sm);
-  padding: 12px 0;
+  padding: 0 0 12px;
+}
+
+/* ---------- Emergency Bar ---------- */
+.emergency-bar {
+  background: var(--color-secondary);
+  color: var(--color-text-white);
+  font-size: 14px;
+  margin-bottom: 16px;
+  transition: var(--transition);
+}
+
+.navbar.scrolled .emergency-bar {
+  margin-bottom: 12px;
+}
+
+.emergency-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 38px;
+}
+
+.emergency-bar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-white);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.4);
+  text-underline-offset: 3px;
+}
+
+.emergency-bar-link:hover {
+  color: var(--color-accent);
+  text-decoration-color: currentColor;
+}
+
+.emergency-bar-pulse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #D9534F;
+  color: var(--color-text-white);
+  animation: pulse 2s infinite;
+}
+
+.emergency-bar-phone {
+  color: var(--color-text-white);
+  font-weight: 600;
+  padding-left: 16px;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.emergency-bar-phone:hover {
+  color: var(--color-accent);
 }
 
 .nav-container {
@@ -331,7 +391,7 @@ h1, h2, h3, h4 {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 120px 0 80px;
+  padding: 160px 0 80px;
   background: linear-gradient(180deg, var(--color-primary-pastel-2) 0%, var(--color-bg) 100%);
   overflow: hidden;
 }
@@ -1454,7 +1514,7 @@ h1, h2, h3, h4 {
 
   .hero {
     min-height: auto;
-    padding: 100px 0 60px;
+    padding: 140px 0 60px;
   }
 
   .hero-float-card {

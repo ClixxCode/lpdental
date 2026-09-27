@@ -12,6 +12,7 @@ const services = [
   },
   {
     title: 'Emergency Care',
+    href: '/services/emergency-care/',
     description: "Prompt and reliable emergency dental services when you need them most. Don't wait when pain strikes.",
     icon: '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>',
   },
@@ -52,7 +53,7 @@ const services = [
           </div>
           <h3>{service.title}</h3>
           <p>{service.description}</p>
-          <a href="#contact" class="service-link">
+          <a href={service.href ?? '#contact'} class="service-link">
             Learn More
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
