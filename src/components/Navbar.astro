@@ -1,7 +1,24 @@
 ---
+interface Props {
+  linkBase?: string;
+  bookHref?: string;
+}
+
+const { linkBase = '', bookHref = `${linkBase}#contact` } = Astro.props;
 ---
 
 <nav class="navbar" id="navbar">
+  <div class="emergency-bar">
+    <div class="container emergency-bar-inner">
+      <a href="/services/emergency-care/" class="emergency-bar-link">
+        <span class="emergency-bar-pulse" aria-hidden="true">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>
+        </span>
+        Emergency Visit!
+      </a>
+      <a href="tel:6186287080" class="emergency-bar-phone">(618) 628-7080</a>
+    </div>
+  </div>
   <div class="container nav-container">
     <a href="/" class="nav-logo">
       <span class="logo-icon">
@@ -15,18 +32,18 @@
       <span class="logo-text">Lake Pointe <span class="logo-accent">Dental</span></span>
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#team">Our Team</a></li>
-      <li><a href="#testimonials">Testimonials</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href={`${linkBase}#services`}>Services</a></li>
+      <li><a href={`${linkBase}#about`}>About</a></li>
+      <li><a href={`${linkBase}#team`}>Our Team</a></li>
+      <li><a href={`${linkBase}#testimonials`}>Testimonials</a></li>
+      <li><a href={`${linkBase}#contact`}>Contact</a></li>
     </ul>
     <div class="nav-actions">
       <a href="tel:6186287080" class="nav-phone">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
         (618) 628-7080
       </a>
-      <a href="#contact" class="btn btn-primary btn-sm">Book Appointment</a>
+      <a href={bookHref} class="btn btn-primary btn-sm">Book Appointment</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
       <span></span>
@@ -35,3 +52,34 @@
     </button>
   </div>
 </nav>
+
+<script>
+  const navbar = document.getElementById('navbar');
+
+  function handleNavScroll() {
+    if (!navbar) return;
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  }
+
+  window.addEventListener('scroll', handleNavScroll, { passive: true });
+  handleNavScroll();
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', function () {
+      navToggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+      document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+    });
+
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+</script>

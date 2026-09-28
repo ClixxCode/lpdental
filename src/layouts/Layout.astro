@@ -2,11 +2,13 @@
 interface Props {
   title: string;
   description?: string;
+  jsonLd?: Record<string, unknown>[];
 }
 
 const {
   title,
   description = "Lake Pointe Dental Group in O'Fallon, IL. Comprehensive dental care from preventive to advanced treatments. Schedule your appointment today.",
+  jsonLd = [],
 } = Astro.props;
 ---
 
@@ -23,6 +25,9 @@ const {
       rel="stylesheet"
     />
     <title>{title}</title>
+    {jsonLd.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
   </head>
   <body>
     <slot />
